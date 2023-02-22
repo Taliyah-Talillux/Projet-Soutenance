@@ -39,9 +39,7 @@ function Player.addPlayer()
         local spawn = love.math.random(1, #myCollisions.eligible_tiles)
         Player.myPlayer =
             Player.spawn_Player(myCollisions.eligible_tiles[spawn].x, myCollisions.eligible_tiles[spawn].y)
-    until Player.myPlayer.x >= 0 and Player.myPlayer.x + Player.myPlayer.width <= myMap.screen_Width and
-        Player.myPlayer.y >= 0 and
-        Player.myPlayer.y + Player.myPlayer.height <= myMap.screen_Height
+    until not myCollisions.outOfScreenSpawn(Player.myPlayer, myMap.screen_Width, myMap.screen_Height)
 end
 
 function Player.load()

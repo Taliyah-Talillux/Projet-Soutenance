@@ -8,24 +8,26 @@ local myEnnemy = require("Ennemy")
 local myCollisions = require("Collisions")
 local myShots = require("Shots")
 local myUtils = require("Utils")
+local myAnimations = require("Animations")
 
 --- Scene en cours
-Game.current_scene = "win"
+Game.current_scene = "menu"
 Game.score = 0
 
 function Game.load()
     myPlayer.load()
     myEnnemy.load()
+    myAnimations.load()
 end
 
 function Game.update(dt)
     -- Changement de l'angle des cannons
-    -- calcul angle cannon ennemy à faire
     myEnnemy.myEnnemy.cannonAngle = myEnnemy.myEnnemy.angle
     myPlayer.myPlayer.cannonAngle =
         math.angle(myPlayer.myPlayer.x, myPlayer.myPlayer.y, love.mouse.getX(), love.mouse.getY())
 
     myShots.update(dt)
+    myAnimations.update(dt)
     -- UPDATE PLAYER
     -- Déplacements
     if love.keyboard.isDown("right") == true then
@@ -52,8 +54,7 @@ function Game.update(dt)
             myEnnemy.myEnnemy.life = myEnnemy.myEnnemy.life - myPlayer.myPlayer.damages
             table.remove(myShots.granades, k)
             Game.score = Game.score + 10
-            print("fin")
-        --   Game.current_scene = "win"
+            Game.current_scene = "win"
         end
     end
 
@@ -149,6 +150,7 @@ function Game.draw()
     myPlayer.draw()
     myEnnemy.draw()
     myShots.draw()
+    myAnimations.draw()
     love.graphics.print("Vies joueur : " .. myPlayer.myPlayer.life, 100, myMap.screen_Height - 20)
     love.graphics.print("Vies ennemi : " .. myEnnemy.myEnnemy.life, myMap.screen_Width - 100, myMap.screen_Height - 20)
     -- love.graphics.print("Chrono : " .. myShots.timer, myMap.screen_Width / 2, myMap.screen_Height - 20)

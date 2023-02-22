@@ -61,6 +61,24 @@ function Collisions.outOfScreen(obj, screen_Width, screen_Height)
     end
 end
 
+function Collisions.outOfScreenSpawn(objet, screen_Width, screen_Height)
+    local halfWidth = objet.width / 2
+    local halfHeight = objet.height / 2
+    if
+        objet.x - halfWidth < 0 or objet.x + halfWidth > myMap.screen_Width or objet.y - halfHeight < 0 or
+            objet.y + halfHeight > myMap.screen_Height - 20
+     then
+        -- L'objet est en dehors des limites de l'écran, on doit le repositionner sur une tuile éligible
+        Collisions.findEligibleTiles()
+        local spawn = love.math.random(1, #Collisions.eligible_tiles)
+        objet.x = Collisions.eligible_tiles[spawn].x
+        objet.y = Collisions.eligible_tiles[spawn].y
+    end
+
+    return objet.x >= halfWidth and objet.x <= screen_Width - halfWidth and objet.y >= halfHeight and
+        objet.y <= screen_Height - halfHeight - 20
+end
+
 function Collisions.load()
 end
 

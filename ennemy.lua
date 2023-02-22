@@ -45,17 +45,18 @@ function Ennemy.ChangeDirection()
     Ennemy.myEnnemy.wantedAngle = math.rad(direction * 360)
 end
 
-function Ennemy.load()
+function addEnnemy()
     repeat
         myCollisions.findEligibleTiles()
         local spawn = love.math.random(1, #myCollisions.eligible_tiles)
         Ennemy.myEnnemy =
             Ennemy.spawn_Ennemy(myCollisions.eligible_tiles[spawn].x, myCollisions.eligible_tiles[spawn].y)
-    until Ennemy.myEnnemy.x >= 0 and Ennemy.myEnnemy.x + Ennemy.myEnnemy.width <= myMap.screen_Width and
-        Ennemy.myEnnemy.y >= 0 and
-        Ennemy.myEnnemy.y + Ennemy.myEnnemy.height <= myMap.screen_Height
+    until not myCollisions.outOfScreenSpawn(Ennemy.myEnnemy, myMap.screen_Width, myMap.screen_Height)
 end
 
+function Ennemy.load()
+    addEnnemy()
+end
 function Ennemy.update(dt)
 end
 
