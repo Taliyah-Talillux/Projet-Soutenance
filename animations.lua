@@ -83,10 +83,10 @@ end
 
 function Animations.update(dt)
     -- Mise à jour du timer
-    Animations.timer = Animations.timer + 0.1
+    Animations.timer = Animations.timer + 0.01
 
     -- Changement de frame
-    if Animations.timer > 0.2 then
+    if Animations.timer > 0.03 then
         Animations.frame = Animations.frame + 1
         if Animations.frame > #Animations.quads_stars then
             Animations.frame = 1

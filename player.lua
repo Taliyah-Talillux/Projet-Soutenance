@@ -33,18 +33,17 @@ function Player.spawn_Player(Px, Py)
 end
 
 function Player.addPlayer()
-    -- Choix aléatoire d'une tuile admissible pour le spawn du joueur
-    repeat
-        myCollisions.findEligibleTiles()
-        local spawn = love.math.random(1, #myCollisions.eligible_tiles)
-        Player.myPlayer =
-            Player.spawn_Player(myCollisions.eligible_tiles[spawn].x, myCollisions.eligible_tiles[spawn].y)
-    until not myCollisions.outOfScreenSpawn(Player.myPlayer, myMap.screen_Width, myMap.screen_Height)
+    myCollisions.findEligibleTiles()
+    local spawn = love.math.random(1, #myCollisions.eligible_tiles)
+    local x = myCollisions.eligible_tiles[spawn].x
+    local y = myCollisions.eligible_tiles[spawn].y
+    Player.myPlayer = Player.spawn_Player(x, y)
 end
 
 function Player.load()
     Player.addPlayer()
 end
+
 function Player.update(dt)
 end
 

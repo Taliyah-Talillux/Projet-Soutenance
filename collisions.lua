@@ -29,8 +29,8 @@ function Collisions.isSolid(tile)
 end
 
 -- Verfiier si les tuiles sont éligibles
-Collisions.eligible_tiles = {}
 function Collisions.findEligibleTiles()
+    Collisions.eligible_tiles = {}
     for j, line in ipairs(myMap.Grill) do
         for i, tile in ipairs(line) do
             if not Collisions.isSolid(tile) then
@@ -65,8 +65,8 @@ function Collisions.outOfScreenSpawn(objet, screen_Width, screen_Height)
     local halfWidth = objet.width / 2
     local halfHeight = objet.height / 2
     if
-        objet.x - halfWidth < 0 or objet.x + halfWidth > myMap.screen_Width or objet.y - halfHeight < 0 or
-            objet.y + halfHeight > myMap.screen_Height - 20
+        objet.x - halfWidth < 0 or objet.x + halfWidth > screen_Width or objet.y - halfHeight < 0 or
+            objet.y + halfHeight > screen_Height - 20
      then
         -- L'objet est en dehors des limites de l'écran, on doit le repositionner sur une tuile éligible
         Collisions.findEligibleTiles()

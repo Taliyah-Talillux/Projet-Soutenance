@@ -75,6 +75,7 @@ function Map.draw()
     local lin = math.floor(mY / Map.TILE_HEIGHT) + 1
     if col > 0 and col <= Map.MAP_WIDTH and lin > 0 and lin < Map.MAP_HEIGHT then
         local id = Map.Grill[lin][col]
+        love.graphics.print("ID : " .. tostring(id))
     end
 end
 
