@@ -34,9 +34,14 @@ function Collisions.findEligibleTiles()
     for j, line in ipairs(myMap.Grill) do
         for i, tile in ipairs(line) do
             if not Collisions.isSolid(tile) then
+                local x = (i - 1) * myMap.TILE_WIDTH
+                local y = (j - 1) * myMap.TILE_HEIGHT
                 table.insert(
                     Collisions.eligible_tiles,
-                    {x = (i - 1 / 2) * myMap.TILE_WIDTH, y = (j - 1 / 2) * myMap.TILE_HEIGHT}
+                    {
+                        x = x + (myMap.TILE_WIDTH / 2),
+                        y = y + (myMap.TILE_HEIGHT / 2)
+                    }
                 )
             end
         end
