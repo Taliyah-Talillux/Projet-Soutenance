@@ -54,7 +54,7 @@ function Shots.update(dt)
         if
             not myCollisions.checkCollision(
                 {x = 0, y = 0, width = myMap.screen_Width, height = myMap.screen_Height},
-                myCollisions.getCollisionCenterBox(granade)
+                granade
             )
          then
             table.remove(Shots.granades, n)

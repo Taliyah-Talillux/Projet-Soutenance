@@ -38,13 +38,7 @@ function Game.update(dt)
     -- L'ennemi est-il touché ?
     for k = #myShots.granades, 1, -1 do
         local granade = myShots.granades[k]
-        if
-            granade.type == "player" and
-                myCollisions.checkCollision(
-                    myCollisions.getCollisionCenterBox(myEnnemy.myEnnemy),
-                    myCollisions.getCollisionCenterBox(granade)
-                )
-         then
+        if granade.type == "player" and myCollisions.checkCollision(myEnnemy.myEnnemy, granade) then
             myEnnemy.myEnnemy.life = myEnnemy.myEnnemy.life - myPlayer.myPlayer.damages
             table.remove(myShots.granades, k)
             Game.score = Game.score + 10
@@ -114,13 +108,7 @@ function Game.update(dt)
         -- Le joueur est-il touché ?
         for n = #myShots.granades, 1, -1 do
             local granade = myShots.granades[n]
-            if
-                granade.type == "ennemy" and
-                    myCollisions.checkCollision(
-                        myCollisions.getCollisionCenterBox(myPlayer.myPlayer),
-                        myCollisions.getCollisionCenterBox(granade)
-                    )
-             then
+            if granade.type == "ennemy" and myCollisions.checkCollision(myPlayer.myPlayer, granade) then
                 myPlayer.myPlayer.life = myPlayer.myPlayer.life - myEnnemy.myEnnemy.damages
                 table.remove(myShots.granades, n)
                 if myPlayer.myPlayer.life <= 0 then

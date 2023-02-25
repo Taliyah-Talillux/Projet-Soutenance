@@ -104,11 +104,10 @@ end
 
 --Check collision between two points
 function Collisions.checkCollision(obj1, obj2)
-    local x1, y1 = obj1.x, obj1.y
-    local w1, h1 = obj1.width, obj1.height
-    local x2, y2 = obj2.x, obj2.y
-    local w2, h2 = obj2.width, obj2.height
-    return x1 < x2 + w2 and x2 < x1 + w1 and y1 < y2 + h2 and y2 < y1 + h1
+    local box1 = Collisions.getCollisionCenterBox(obj1)
+    local box2 = Collisions.getCollisionCenterBox(obj2)
+    return box1.x < box2.x + box2.width and box2.x < box1.x + box1.width and box1.y < box2.y + box2.height and
+        box2.y < box1.y + box1.height
 end
 
 --- Collision box object

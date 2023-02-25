@@ -7,6 +7,7 @@ local myCollisions = require("Collisions")
 function BonusEffect.update(dt)
     -- Vérification de la collision entre les deux objets
     if myCollisions.checkCollision(myPlayer.myPlayer, myAnimations.stars) then
+        print("les deux objets se touchent")
     else
         --   print("Les deux objets ne se touchent pas.")
     end
