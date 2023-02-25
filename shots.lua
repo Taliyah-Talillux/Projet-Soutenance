@@ -2,14 +2,14 @@ Shots = {}
 local myMap = require("Map")
 local myPlayer = require("Player")
 local myEnnemy = require("Ennemy")
-local myUtils = require("Utils")
+local myCollisions = require("Collisions")
 local mySounds = require("Sounds")
 
 Shots.granades = {}
 Shots.Timer = 0
 
 function Shots.addShot(shooter, target, type)
-    local cannonPos = myUtils.getCannonPosition(shooter)
+    local cannonPos = myCollisions.getCannonPosition(shooter)
     local granade = {}
     local halfWidth = shooter.width / 2
     local halfHeight = shooter.height / 2
@@ -52,9 +52,9 @@ function Shots.update(dt)
         granade.x = granade.x + math.cos(granade.angle) * 50 * dt
         granade.y = granade.y + math.sin(granade.angle) * 50 * dt
         if
-            not myUtils.checkCollision(
+            not myCollisions.checkCollision(
                 {x = 0, y = 0, width = myMap.screen_Width, height = myMap.screen_Height},
-                myUtils.getCollisionCenterBox(granade)
+                myCollisions.getCollisionCenterBox(granade)
             )
          then
             table.remove(Shots.granades, n)

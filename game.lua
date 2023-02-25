@@ -40,9 +40,9 @@ function Game.update(dt)
         local granade = myShots.granades[k]
         if
             granade.type == "player" and
-                myUtils.checkCollision(
-                    myUtils.getCollisionCenterBox(myEnnemy.myEnnemy),
-                    myUtils.getCollisionCenterBox(granade)
+                myCollisions.checkCollision(
+                    myCollisions.getCollisionCenterBox(myEnnemy.myEnnemy),
+                    myCollisions.getCollisionCenterBox(granade)
                 )
          then
             myEnnemy.myEnnemy.life = myEnnemy.myEnnemy.life - myPlayer.myPlayer.damages
@@ -83,7 +83,7 @@ function Game.update(dt)
         end
     elseif myEnnemy.myEnnemy.state == myEnnemy.State.ATTACK then
         -- Calculer l'angle du cannon
-        local cannonPos = myUtils.getCannonPosition(myEnnemy.myEnnemy)
+        local cannonPos = myCollisions.getCannonPosition(myEnnemy.myEnnemy)
         myEnnemy.myEnnemy.cannonAngle = math.angle(cannonPos.x, cannonPos.y, myPlayer.myPlayer.x, myPlayer.myPlayer.y)
 
         -- -- Calcule l'angle entre l'ennemi et le joueur
@@ -116,9 +116,9 @@ function Game.update(dt)
             local granade = myShots.granades[n]
             if
                 granade.type == "ennemy" and
-                    myUtils.checkCollision(
-                        myUtils.getCollisionCenterBox(myPlayer.myPlayer),
-                        myUtils.getCollisionCenterBox(granade)
+                    myCollisions.checkCollision(
+                        myCollisions.getCollisionCenterBox(myPlayer.myPlayer),
+                        myCollisions.getCollisionCenterBox(granade)
                     )
              then
                 myPlayer.myPlayer.life = myPlayer.myPlayer.life - myEnnemy.myEnnemy.damages

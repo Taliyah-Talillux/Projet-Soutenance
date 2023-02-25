@@ -66,6 +66,13 @@ function Collisions.outOfScreen(obj, screen_Width, screen_Height)
     end
 end
 
+function Collisions.getCannonPosition(objet)
+    return {
+        x = objet.x - math.cos(objet.angle) * 3,
+        y = objet.y - math.sin(objet.angle) * 3
+    }
+end
+
 function Collisions.outOfScreenSpawn(objet, screen_Width, screen_Height)
     local halfWidth = objet.width / 2
     local halfHeight = objet.height / 2
@@ -84,21 +91,34 @@ function Collisions.outOfScreenSpawn(objet, screen_Width, screen_Height)
         objet.y <= screen_Height - halfHeight - 20
 end
 
-function Collisions.collideBetweenTwoObjects(obj1, obj2)
-    local halfWidth1 = obj1.width / 2
-    local halfHeight1 = obj1.height / 2
-    local halfWidth2 = obj2.width / 2
-    local halfHeight2 = obj2.height / 2
-
-    if
-        obj1.x - halfWidth1 < obj2.x + halfWidth2 and obj1.x + halfWidth1 > obj2.x - halfWidth2 and
-            obj1.y - halfHeight1 < obj2.y + halfHeight2 and
-            obj1.y + halfHeight1 > obj2.y - halfHeight2
-     then
-        return true
-    else
+-- Check collision bewteen a point and a rectangle
+function Collisions.pointInBox(pX, pY, x, y, rW, rH)
+    if math.abs(pX - x) > rW then
         return false
     end
+    if math.abs(pY - y) > rH then
+        return false
+    end
+    return true
+end
+
+--Check collision between two points
+function Collisions.checkCollision(obj1, obj2)
+    local x1, y1 = obj1.x, obj1.y
+    local w1, h1 = obj1.width, obj1.height
+    local x2, y2 = obj2.x, obj2.y
+    local w2, h2 = obj2.width, obj2.height
+    return x1 < x2 + w2 and x2 < x1 + w1 and y1 < y2 + h2 and y2 < y1 + h1
+end
+
+--- Collision box object
+function Collisions.getCollisionCenterBox(obj)
+    return {
+        x = obj.x - obj.width / 2,
+        y = obj.y - obj.height / 2,
+        width = obj.width,
+        height = obj.height
+    }
 end
 
 function Collisions.load()

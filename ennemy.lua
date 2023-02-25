@@ -1,7 +1,6 @@
 local Ennemy = {}
 local myMap = require("Map")
 local myCollisions = require("Collisions")
-local myUtils = require("Utils")
 
 function Ennemy.spawn_Ennemy(Px, Py)
     local myEnnemy = {}
@@ -74,7 +73,7 @@ function Ennemy.draw()
             Ennemy.myEnnemy.height / 2
         )
         -- Affichage du canon
-        local cannonPos = myUtils.getCannonPosition(Ennemy.myEnnemy)
+        local cannonPos = myCollisions.getCannonPosition(Ennemy.myEnnemy)
         love.graphics.draw(
             Ennemy.myEnnemy.imgCanon,
             cannonPos.x,

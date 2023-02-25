@@ -1,7 +1,6 @@
 local Player = {}
 local myMap = require("Map")
 local myCollisions = require("Collisions")
-local myUtils = require("Utils")
 
 function Player.spawn_Player(Px, Py)
     local myPlayer = {}
@@ -66,7 +65,7 @@ function Player.draw()
         )
         -- Affichage du canon
         -- Pour centrage du cannon, on soustrait le cos/sinus de l'angle du player à x et y x un coeff, plus le coeff est elevé plus le cannon sera sur l'exterieur du tank et inversement
-        local cannonPos = myUtils.getCannonPosition(Player.myPlayer)
+        local cannonPos = myCollisions.getCannonPosition(Player.myPlayer)
         love.graphics.draw(
             Player.myPlayer.imgCanon,
             cannonPos.x,

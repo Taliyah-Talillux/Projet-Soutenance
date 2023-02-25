@@ -4,7 +4,7 @@ local myMenu = require("Menu")
 local myGame = require("Game")
 local WinScene = require("Win")
 local DefeatScene = require("Defeat")
-local myUtils = require("Utils")
+local myCollisions = require("Collisions")
 local myMap = require("Map")
 local myPlayer = require("Player")
 local myEnnemy = require("Ennemy")
@@ -55,7 +55,7 @@ function Scenes.mousepressed(x, y, button)
     if myGame.current_scene == "menu" then
         if button == 1 then
             if
-                myUtils.pointInBox(
+                myCollisions.pointInBox(
                     mouseX,
                     mouseY,
                     myMenu.PlayButton.x,
@@ -68,7 +68,7 @@ function Scenes.mousepressed(x, y, button)
                 myGame.load()
             end
             if
-                myUtils.pointInBox(
+                myCollisions.pointInBox(
                     mouseX,
                     mouseY,
                     myMenu.QuitButton.x,

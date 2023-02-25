@@ -1,33 +1,37 @@
 -- Déclaration de la table d'animations
 local Animations = {}
-Animations.stars = {}
-Animations.hearts = {}
 
 local myCollisions = require("Collisions")
 local myMap = require("Map")
 
+Animations.stars = {}
+Animations.hearts = {}
+
 local texture1, texture2
 
-function Animations.addAnimationsStars()
+function Animations.addAnimations()
     -- Choix d'une tuile admissible
     repeat
         myCollisions.findEligibleTiles()
-        local spawn = love.math.random(1, #myCollisions.eligible_tiles)
-        Animations.stars.x = myCollisions.eligible_tiles[spawn].x
-        Animations.stars.y = myCollisions.eligible_tiles[spawn].y
+        local spawnStars = love.math.random(1, #myCollisions.eligible_tiles)
+        local spawnHearts = love.math.random(1, #myCollisions.eligible_tiles)
+        Animations.stars.x = myCollisions.eligible_tiles[spawnStars].x
+        Animations.stars.y = myCollisions.eligible_tiles[spawnStars].y
+        Animations.hearts.x = myCollisions.eligible_tiles[spawnHearts].x
+        Animations.hearts.y = myCollisions.eligible_tiles[spawnHearts].y
     until myCollisions.outOfScreenSpawn(Animations.stars, myMap.screen_Width, myMap.screen_Height)
-end
-
-function Animations.addAnimationsHearts()
-    -- Choix d'une tuile admissible
     repeat
-        myCollisions.findEligibleTiles()
-        local spawn = love.math.random(1, #myCollisions.eligible_tiles)
-        Animations.hearts.x = myCollisions.eligible_tiles[spawn].x
-        Animations.hearts.y = myCollisions.eligible_tiles[spawn].y
     until myCollisions.outOfScreenSpawn(Animations.hearts, myMap.screen_Width, myMap.screen_Height)
 end
 
+function bonusAppears(timer)
+    timer = timer + dt
+    if timer >= 3 then
+        myAnimations.addAnimationsStars()
+    elseif timer >= 4 then
+        myAnimations.addAnimationsHearts()
+    end
+end
 function Animations.load()
     -- Chargement de la texture
     texture1 = love.graphics.newImage("Images/Bonus/étoiles.png")
@@ -44,8 +48,7 @@ function Animations.load()
     Animations.hearts.height = Animations.heartsSheetHeight / rows_heart
 
     -- Ajoute une animation
-    Animations.addAnimationsStars()
-    Animations.addAnimationsHearts()
+    Animations.addAnimations()
 
     local frameDimensionsStars = {
         {width = 46, height = 80},
@@ -112,7 +115,6 @@ function Animations.load()
             )
             x = x + Animations.hearts.width
         end
-
         Animations.quads_hearts = quads_hearts
     end
 
@@ -123,13 +125,22 @@ function Animations.load()
     Animations.frame_hearts = 1
     Animations.timer_hearts = 0
     Animations.duration_hearts = 0.03
+
+    print(frameDimensionsStars[Animations.frame_stars].width)
 end
 
 function Animations.update(dt)
     -- Changement de frame
+    Animations.timer_stars = Animations.timer_stars + dt
     Animations.timer_hearts = Animations.timer_hearts + dt
 
-    frameTimer(Animations.stars, Animations.quads_stars, Animations.timer_stars, dt) -- ne change pas de frame si nom générique
+    if Animations.timer_stars > Animations.duration_stars then
+        Animations.frame_stars = Animations.frame_stars + 1
+        if Animations.frame_stars > #Animations.quads_stars then
+            Animations.frame_stars = 1
+        end
+        Animations.timer_stars = 0
+    end
 
     if Animations.timer_hearts > Animations.duration_hearts then
         Animations.frame_hearts = Animations.frame_hearts + 1
