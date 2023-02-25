@@ -4,14 +4,14 @@ local myMap = require("Map")
 Menu.PlayButton = {}
 Menu.PlayButton.x = myMap.screen_Width / 2
 Menu.PlayButton.y = myMap.screen_Height / 2 - 100
-Menu.PlayButton.img = love.graphics.newImage("Images/PlayButton.png")
+Menu.PlayButton.img = love.graphics.newImage("Images/Boutons/PlayButton.png")
 Menu.PlayButton.width = Menu.PlayButton.img:getWidth()
 Menu.PlayButton.height = Menu.PlayButton.img:getHeight()
 
 Menu.QuitButton = {}
 Menu.QuitButton.x = myMap.screen_Width / 2
 Menu.QuitButton.y = myMap.screen_Height / 2 + 100
-Menu.QuitButton.img = love.graphics.newImage("Images/QuitButton.png")
+Menu.QuitButton.img = love.graphics.newImage("Images/Boutons/QuitButton.png")
 Menu.QuitButton.width = Menu.QuitButton.img:getWidth()
 Menu.QuitButton.height = Menu.QuitButton.img:getHeight()
 

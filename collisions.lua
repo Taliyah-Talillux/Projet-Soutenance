@@ -84,6 +84,23 @@ function Collisions.outOfScreenSpawn(objet, screen_Width, screen_Height)
         objet.y <= screen_Height - halfHeight - 20
 end
 
+function Collisions.collideBetweenTwoObjects(obj1, obj2)
+    local halfWidth1 = obj1.width / 2
+    local halfHeight1 = obj1.height / 2
+    local halfWidth2 = obj2.width / 2
+    local halfHeight2 = obj2.height / 2
+
+    if
+        obj1.x - halfWidth1 < obj2.x + halfWidth2 and obj1.x + halfWidth1 > obj2.x - halfWidth2 and
+            obj1.y - halfHeight1 < obj2.y + halfHeight2 and
+            obj1.y + halfHeight1 > obj2.y - halfHeight2
+     then
+        return true
+    else
+        return false
+    end
+end
+
 function Collisions.load()
 end
 

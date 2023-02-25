@@ -8,6 +8,7 @@ local myUtils = require("Utils")
 local myMap = require("Map")
 local myPlayer = require("Player")
 local myEnnemy = require("Ennemy")
+local myKeyboard = require("Keyboard")
 
 function Scenes.load()
     -- Chargement des scènes
@@ -83,6 +84,14 @@ function Scenes.mousepressed(x, y, button)
     if myGame.current_scene == "game" then
         myGame.mousepressed(x, y, button)
     end
+end
+
+function Scenes.keypressed(key)
+    myGame.keypressed(key)
+end
+
+function Scenes.keyreleased(key)
+    myGame.keyreleased(key)
 end
 
 return Scenes

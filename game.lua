@@ -9,6 +9,8 @@ local myCollisions = require("Collisions")
 local myShots = require("Shots")
 local myUtils = require("Utils")
 local myAnimations = require("Animations")
+local myKeyboard = require("Keyboard")
+local myBonusEffect = require("BonusEffect")
 
 --- Scene en cours
 Game.current_scene = "menu"
@@ -21,6 +23,9 @@ function Game.load()
 end
 
 function Game.update(dt)
+    -- bonus
+    myBonusEffect.update(dt)
+
     -- Changement de l'angle des cannons
     myEnnemy.myEnnemy.cannonAngle = myEnnemy.myEnnemy.angle
     myPlayer.myPlayer.cannonAngle =
@@ -29,18 +34,7 @@ function Game.update(dt)
     myShots.update(dt)
     myAnimations.update(dt)
     -- UPDATE PLAYER
-    -- Déplacements
-    if love.keyboard.isDown("right") == true then
-        myPlayer.myPlayer.angle = myPlayer.myPlayer.angle + myPlayer.myPlayer.speedOrientation * dt
-    end
-    if love.keyboard.isDown("left") == true then
-        myPlayer.myPlayer.angle = myPlayer.myPlayer.angle - myPlayer.myPlayer.speedOrientation * dt
-    end
-    if love.keyboard.isDown("up") then
-        myPlayer.myPlayer.x = myPlayer.myPlayer.x + math.cos(myPlayer.myPlayer.angle) * myPlayer.myPlayer.vx * dt
-        myPlayer.myPlayer.y = myPlayer.myPlayer.y + math.sin(myPlayer.myPlayer.angle) * myPlayer.myPlayer.vy * dt
-    end
-
+    myKeyboard.update(dt)
     -- L'ennemi est-il touché ?
     for k = #myShots.granades, 1, -1 do
         local granade = myShots.granades[k]
@@ -165,4 +159,13 @@ function Game.mousepressed(x, y, button, dt)
         myShots.chronometre_player()
     end
 end
+
+function Game.keypressed(key)
+    myKeyboard.keypressed(key)
+end
+
+function Game.keyreleased(key)
+    myKeyboard.keyreleased(key)
+end
+
 return Game

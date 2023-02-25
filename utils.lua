@@ -1,4 +1,5 @@
 local Utils = {}
+myAnimations = require("Animations")
 
 -- Return distance between two points
 function math.dist(x1, y1, x2, y2)
@@ -47,6 +48,29 @@ function Utils.getCannonPosition(objet)
         x = objet.x - math.cos(objet.angle) * 3,
         y = objet.y - math.sin(objet.angle) * 3
     }
+end
+
+function frameTimer(stars, quads, timer, dt)
+    myAnimations.timer_stars = myAnimations.timer_stars + dt
+    if myAnimations.timer_stars > myAnimations.duration_stars then
+        myAnimations.frame_stars = myAnimations.frame_stars + 1
+        if myAnimations.frame_stars > #myAnimations.quads_stars then
+            myAnimations.frame_stars = 1
+        end
+        myAnimations.timer_stars = 0
+    end
+end
+
+function frameTimer2(sprite, quads, timer, dt)
+    sprite.timer = (sprite.timer or 0) + dt
+    if sprite.timer > timer then
+        sprite.frame = (sprite.frame or 1) + 1
+        if sprite.frame > #quads then
+            sprite.frame = 1
+        end
+        sprite.timer = 0
+    end
+    sprite.quad = quads[sprite.frame]
 end
 
 return Utils

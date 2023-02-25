@@ -34,5 +34,9 @@ function love.mousepressed(x, y, button)
 end
 
 function love.keypressed(key)
-    print(key)
+    myScenes.keypressed(key)
+end
+
+function love.keyreleased(key)
+    myScenes.keyreleased(key)
 end

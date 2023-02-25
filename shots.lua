@@ -3,6 +3,7 @@ local myMap = require("Map")
 local myPlayer = require("Player")
 local myEnnemy = require("Ennemy")
 local myUtils = require("Utils")
+local mySounds = require("Sounds")
 
 Shots.granades = {}
 Shots.Timer = 0
@@ -35,9 +36,10 @@ function Shots.chronometre_ennemy(dt)
 end
 
 function Shots.chronometre_player()
-    while Shots.Timer >= 1 do
+    while Shots.Timer >= 2 do
         Shots.Timer = Shots.Timer + os.clock()
         Shots.addShot(myPlayer.myPlayer, {x = love.mouse.getX(), y = love.mouse.getY()}, "player")
+        love.audio.play(mySounds.src1)
         Shots.Timer = 0
     end
 end
